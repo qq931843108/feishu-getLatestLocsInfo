@@ -1,0 +1,27 @@
+{
+  "title": "Title",
+  "alerts": {
+    "selectNumberField": "Plugin Description: Obtain the latest time and status of a logistics node based on the tracking number"
+  },
+  "labels": {
+    "number": "Tracking Number",
+    "latestTime": "Latest Node Time Field",
+    "latestStatus": "Latest Node Status Field",
+    "api": "API Information",
+    "apiConfig": {
+      "address": "Request Address",
+      "appcode": "APPCODE"
+    },
+    "diff": "Refresh Result Field"
+  },
+  "apiDescDocument": "API Description Document",
+  "placeholder": {
+    "number": "Please select the column corresponding to the tracking number",
+    "latestTime": "Please select the field corresponding to the latest node time",
+    "latestStatus": "Please select the field corresponding to the latest node status",
+    "apiAddress": "Please enter the API interface address",
+    "apiAppcode": "Please enter APPCODE",
+    "diff": "Please select the field corresponding to the logistics information refresh result"
+  },
+  "submit": "Refresh Logistics Information"
+}

@@ -1,0 +1,27 @@
+{
+  "title":"标题", 
+  "alerts": {
+    "selectNumberField": "插件说明：依据快递号，获取物流最新节点的时间和状态"
+  },
+  "labels": {
+    "number": "快递号",
+    "latestTime": "节点最新时间字段",
+    "latestStatus": "节点最新状态字段",
+    "api": "接口信息",
+    "apiConfig": {
+      "address": "请求地址",
+      "appcode": "APPCODE"
+    },
+    "diff": "刷新结果字段"
+  },
+  "apiDescDocument": "接口说明文档",
+  "placeholder": {
+    "number": "请选择快递号对应的字段列",
+    "latestTime": "请选择节点最新时间对应的字段",
+    "latestStatus": "请选择节点最新状态对应的字段",
+    "apiAddress": "请输入 API 接口地址",
+    "apiAppcode": "请输入 APPCODE",
+    "diff": "请选择物流信息刷新结果对应的字段"
+  },
+  "submit": "刷新物流信息"
+} 
