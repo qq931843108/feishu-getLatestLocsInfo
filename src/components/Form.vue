@@ -45,7 +45,9 @@ import axios from 'axios';
 const { t } = useI18n();
 const fieldListSeView = ref([])
 const interfaceAddr = ref('https://wuliu.market.alicloudapi.com/kdi')
-const appcode = ref('db7bd581534a4da2b13f60713ff83396')
+// const appcode = ref('69d22a9c7e8b414b8a09b115fbb39ee8')
+const appcode = ref('')
+
 const diffInfo = ref('')
 
 const numberFieldId = ref('')
@@ -69,7 +71,9 @@ const writeData = async () => {
   localStorage.setItem('latestTimeFieldId', latestTimeFieldId.value)   // string 类型
   localStorage.setItem('latestStatusFieldId', latestStatusFieldId.value)   // string 类型
   localStorage.setItem('diffFieldId', diffFieldId.value)   // string 类型
+  localStorage.setItem('appcode', appcode.value)   // string 类型
 
+  
 
   // 加载bitable实例
   const { tableId, viewId } = await bitable.base.getSelection();
@@ -88,77 +92,82 @@ const writeData = async () => {
   let latestTimeFieldType = Object.getPrototypeOf(latestTimeField).type
 
 
-  try {
-    for (let recordId of RecordList) {
-      // TODO：在这里书写处理逻辑——数据请求、数据写入等
-      let number = await getCellValueByRFIDS(recordId, numberFieldId.value)
-      // 不同快递号格式的处理
-      if (number[0].type == 'text') {
-        number = number[0].text
-      }
-      console.log("快递号：", number)
+  
+  
 
-      const res = await getLocsInfo(number)
-      // 请求错误处理
-      if (res == 'ERROR') {
-        await bitable.ui.showToast({
-          toastType: 'error',
-          message: '请求错误'
-        })
-        return
-      }
-      
-      // 1. 物流节点最新时间
-      if (latestTimeFieldType == 5) { // 时间格式  
-        const dateObj = new Date(res.list[0].time);
-        const timestamp = dateObj.getTime();
-        await latestTimeField.setValue(recordId, timestamp);
-        
-      } else if (latestTimeFieldType == 1)  // 文本格式
-        await table.setCellValue(latestTimeFieldId.value, recordId, [{ type: 'text', text: res.list[0].time }])
+ 
+  for (let recordId of RecordList) {
+     try {
+       // TODO：在这里书写处理逻辑——数据请求、数据写入等
+       let number = await getCellValueByRFIDS(recordId, numberFieldId.value)
+       // 不同快递号格式的处理
+       if (number[0].type == 'text') {
+         number = number[0].text
+       }
+       if(number.length == 0){
+         continue
+       }
+       console.log("快递号1：", number)
+
+       const res = await getLocsInfo(number)
+       console.log(res)
+       // 请求错误处理
+       if (res == 'ERROR') {
+         await bitable.ui.showToast({
+           toastType: 'error',
+           message: '请求错误'
+         })
+         return
+       }
+
+       // 1. 物流节点最新时间
+       console.log(res.list)
+       if (latestTimeFieldType == 5) { // 时间格式  
+         const dateObj = new Date(res.list[0].time);
+         const timestamp = dateObj.getTime();
+         await latestTimeField.setValue(recordId, timestamp);
+
+       } else if (latestTimeFieldType == 1)  // 文本格式
+         await table.setCellValue(latestTimeFieldId.value, recordId, [{ type: 'text', text: res.list[0].time }])
 
 
-      // 2. 物流节点最新状态
-      await table.setCellValue(latestStatusFieldId.value, recordId, [{ type: 'text', text: res.list[0].status }])
-      
-      // 3. 物流刷新结果
-      let lastStatus = await getCellValueByRFIDS(recordId, latestStatusFieldId.value) // 上一次节点状态
-      lastStatus = lastStatus[0].text
-      console.log("lastStatus", lastStatus)
-      let lastDiffText =  await getCellValueByRFIDS(recordId, diffFieldId.value) // 上一次diff结果
-      console.log("lastDiffText No.1", lastDiffText)
-      if (!lastDiffText)
-        lastDiffText = " "
-      else 
-        lastDiffText = lastDiffText[0].text
-      console.log("lastDiffText No.2", lastDiffText)
+       // 2. 物流节点最新状态
+       await table.setCellValue(latestStatusFieldId.value, recordId, [{ type: 'text', text: res.list[0].status }])
 
-      const expName = res.expName  // 已处理
-      const nowTime = getTime()  // 已处理
-      const isStatusChange = (lastStatus == res.list[0].status ? '×' : '√') // 已处理
-      const lastRefreshTime = getLastDiffTime(lastDiffText)  // 已处理
+       // 3. 物流刷新结果
+       let lastStatus = await getCellValueByRFIDS(recordId, latestStatusFieldId.value) // 上一次节点状态
+       console.log(111)
+       lastStatus = lastStatus[0].text
+       console.log("lastStatus", lastStatus)
+       let lastDiffText =  await getCellValueByRFIDS(recordId, diffFieldId.value) // 上一次diff结果
+       console.log("lastDiffText No.1", lastDiffText)
+       if (!lastDiffText)
+         lastDiffText = " "
+       else 
+         lastDiffText = lastDiffText[0].text
+       console.log("lastDiffText No.2", lastDiffText)
 
-      const diffText = `${expName} 于 ${nowTime} 刷新。新变动 ${isStatusChange} 。上次刷新时间  ${lastRefreshTime}`
-      
-        // 3. 的最后一步，写回结果
-      await table.setCellValue(diffFieldId.value, recordId, [{ type: 'text', text: diffText }])
+       const expName = res.expName  // 已处理
+       const nowTime = getTime()  // 已处理
+       const isStatusChange = (lastStatus == res.list[0].status ? '×' : '√') // 已处理
+       const lastRefreshTime = getLastDiffTime(lastDiffText)  // 已处理
 
-      
-    }
-    await bitable.ui.showToast({
-      toastType: 'success',
-      message: '处理完毕'
-    })
-  } catch (e){
-    console.log("error:\n", e)
-    await bitable.ui.showToast({
-      toastType: 'error',
-      message: e
-    })
+       const diffText = `${expName} 于 ${nowTime} 刷新。新变动 ${isStatusChange} 。上次刷新时间  ${lastRefreshTime}`
+
+         // 3. 的最后一步，写回结果
+       await table.setCellValue(diffFieldId.value, recordId, [{ type: 'text', text: diffText }])
+       } catch (e){
+         console.log("error:\n", e)
+         await bitable.ui.showToast({
+           toastType: 'warning',
+           message: '跳过了一个错误的快递单号'
+         })
+       }
   }
-  
-
-  
+  await bitable.ui.showToast({
+    toastType: 'success',
+    message: '处理完毕'
+  })
 
 }
 
@@ -179,9 +188,10 @@ const getLocsInfo = async (number) => {
   let res = ''
   await axios.get(url, config)
     .then((response) => {
-      
+      console.log(response)
       res = response
     }).catch(err => {
+      console.log(err)
       // isDataWriten.value = 2
       // requestErrorInfo.value = err
     })
@@ -268,6 +278,9 @@ onMounted(async () => {
   }
   if (localStorage.getItem('diffFieldId') !== null) {
     diffFieldId.value = localStorage.getItem('diffFieldId')
+  }
+  if (localStorage.getItem('appcode') !== null) {
+    appcode.value = localStorage.getItem('appcode')
   }
   // 从缓存中获取数据 -- end
 });

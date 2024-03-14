@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "types-registry": "^0.1.672"
+    "types-registry": "^0.1.684"
   },
   "devDependencies": {
     "@types/balanced-match": "^1.0.3",
