@@ -10,11 +10,28 @@
     "api": "接口信息",
     "apiConfig": {
       "address": "请求地址",
-      "appcode": "APPCODE"
+      "APPCODE": "APPCODE"
     },
     "diff": "刷新结果字段"
   },
   "apiDescDocument": "接口说明文档",
+  "infoTip": {
+    "start": "插件运行中...",
+    "end": "运行结束",
+    "end_sentence": "总计处理 totalLocsNum 条快递数据，其中有 errorLocsNum 条数据处理错误",
+    "process": "插件运行进度：" 
+  },
+  "errorTip": {
+    "empty_params": "请填写必要信息",
+    "empty_number": "快递号为空",
+    "SF": "顺丰快递需在快递号后添加 【:四位手机尾号】"
+  },
+  "fieldTypeChecks": {
+    "Number": "类型校验失败：类型不是数字",
+    "Text": "类型校验失败：类型不是文本",
+    "Datetime": "类型校验失败：类型不是日期",
+    "Attachment": "类型校验失败：类型不是附件"
+  },
   "placeholder": {
     "number": "请选择快递号对应的字段列",
     "latestTime": "请选择节点最新时间对应的字段",
