@@ -1,7 +1,7 @@
 {
   "title": "Title",
   "alerts": {
-    "selectNumberField": "Plugin Description: Obtain the latest time and status of a logistics node based on the tracking number"
+    "selectNumberField": "Plugin description: Obtain the latest logistics node time and status based on the tracking number."
   },
   "labels": {
     "number": "Tracking Number",
@@ -10,18 +10,35 @@
     "api": "API Information",
     "apiConfig": {
       "address": "Request Address",
-      "appcode": "APPCODE"
+      "APPCODE": "APPCODE"
     },
     "diff": "Refresh Result Field"
   },
   "apiDescDocument": "API Description Document",
+  "infoTip": {
+    "start": "Plugin is running...",
+    "end": "Operation completed",
+    "end_sentence": "Total processed totalLocsNum tracking data, including errorLocsNum data processing errors",
+    "process": "Plugin progress: "
+  },
+  "errorTip": {
+    "empty_params": "Please fill in the necessary information",
+    "empty_number": "Tracking number is empty",
+    "SF": "SF Express requires adding 【: last four digits of phone number】 after the tracking number"
+  },
+  "fieldTypeChecks": {
+    "Number": "Type check failed: Type is not a number",
+    "Text": "Type check failed: Type is not text",
+    "Datetime": "Type check failed: Type is not a date",
+    "Attachment": "Type check failed: Type is not an attachment"
+  },
   "placeholder": {
-    "number": "Please select the column corresponding to the tracking number",
-    "latestTime": "Please select the field corresponding to the latest node time",
-    "latestStatus": "Please select the field corresponding to the latest node status",
+    "number": "Please select the corresponding field column for the tracking number",
+    "latestTime": "Please select the corresponding field for the latest node time",
+    "latestStatus": "Please select the corresponding field for the latest node status",
     "apiAddress": "Please enter the API interface address",
-    "apiAppcode": "Please enter APPCODE",
-    "diff": "Please select the field corresponding to the logistics information refresh result"
+    "apiAppcode": "Please enter the APPCODE",
+    "diff": "Please select the corresponding field for the logistics information refresh result"
   },
   "submit": "Refresh Logistics Information"
 }
