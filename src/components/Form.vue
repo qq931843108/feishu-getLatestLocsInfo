@@ -11,6 +11,7 @@
       
     </el-form-item>
     <el-form-item :label="$t('labels.number')" size="large" required>
+      <div class="no-tip">【顺丰和丰网请输入单号 : 收件人或寄件人手机号后四位。例如：123456789:1234】</div>
       <el-select v-model="numberFieldId" :placeholder="$t('placeholder.number')" style="width: 100%">
         <el-option v-for="meta in fieldListSeView" :key="meta.id" :label="meta.name" :value="meta.id" />
       </el-select>
@@ -549,5 +550,10 @@ onMounted(async () => {
 
 
 <style scoped>
-  
+  .no-tip {
+    line-height: 1.5;
+    color: grey;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
 </style>
