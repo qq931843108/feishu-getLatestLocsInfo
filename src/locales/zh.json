@@ -10,7 +10,8 @@
     "api": "接口信息",
     "apiConfig": {
       "address": "请求地址",
-      "APPCODE": "APPCODE"
+      "APPCODE": "APPCODE",
+      "apiType": "Type"
     },
     "diff": "刷新结果字段"
   },
@@ -38,6 +39,7 @@
     "latestStatus": "请选择节点最新状态对应的字段",
     "apiAddress": "请输入 API 接口地址",
     "apiAppcode": "请输入 APPCODE",
+    "apiType": "请输入物流公司 Type，可不填，95%能自动识别",
     "diff": "请选择物流信息刷新结果对应的字段"
   },
   "submit": "刷新物流信息"

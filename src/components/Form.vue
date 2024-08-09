@@ -7,6 +7,7 @@
     <el-form-item :label="$t('labels.api')" size="large" required>
       <span>{{ $t('labels.apiConfig.address') }}</span><el-input v-model="INTERFACE_ADDR" :placeholder="$t('placeholder.apiAddress')"></el-input>
       <span>{{ $t('labels.apiConfig.APPCODE') }}</span><el-input type="password" v-model="APPCODE" :placeholder="$t('placeholder.apiAppcode')"></el-input>
+      <span>{{ $t('labels.apiConfig.apiType') }}</span><el-input v-model="apiType" :placeholder="$t('placeholder.apiType')"></el-input>
       
     </el-form-item>
     <el-form-item :label="$t('labels.number')" size="large" required>
@@ -60,6 +61,7 @@ const { t } = useI18n();
 const DOCX_LINK = ref("https://jfsq6znqku.feishu.cn/wiki/Pr0kwAAn9iQMIakrZK1coFIynhf?from=from_copylink")
 const INTERFACE_ADDR = ref('https://wuliu.market.alicloudapi.com/kdi')
 const APPCODE = ref('')
+const apiType = ref('')
 const FieldTypeMap = {
     NotSupport: 0,
     Text: 1,
@@ -288,6 +290,7 @@ const setLocalStorage = () => {
   localStorage.setItem('latestStatusFieldId', latestStatusFieldId.value)   // string 类型
   localStorage.setItem('diffFieldId', diffFieldId.value)   // string 类型
   localStorage.setItem('APPCODE', APPCODE.value)   // string 类型
+  localStorage.setItem('apiType', apiType.value)   // string 类型
 }
 
 /**
@@ -397,7 +400,7 @@ const getFieldMetaById= async (fieldId, table) => {
  * @return {object} 返回接口请求的快递信息
  */
 const getLocsInfo = async (number) => {
-  const url = `${INTERFACE_ADDR.value}?no=${number}`;
+  const url = `${INTERFACE_ADDR.value}?no=${number}&type=${apiType.value}`;
 
   const config = {
     headers: {
@@ -508,6 +511,9 @@ const setVariableFromLocalStorage = () => {
   }
   if (localStorage.getItem('APPCODE') !== null) {
     APPCODE.value = localStorage.getItem('APPCODE')
+  }
+  if (localStorage.getItem('apiType') !== null) {
+    apiType.value = localStorage.getItem('apiType')
   }
 }
 

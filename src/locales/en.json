@@ -10,7 +10,8 @@
     "api": "API Information",
     "apiConfig": {
       "address": "Request Address",
-      "APPCODE": "APPCODE"
+      "APPCODE": "APPCODE",
+      "apiType": "Type"
     },
     "diff": "Refresh Result Field"
   },
@@ -38,6 +39,7 @@
     "latestStatus": "Please select the corresponding field for the latest node status",
     "apiAddress": "Please enter the API interface address",
     "apiAppcode": "Please enter the APPCODE",
+    "apiType": "Please enter the Type",
     "diff": "Please select the corresponding field for the logistics information refresh result"
   },
   "submit": "Refresh Logistics Information"
